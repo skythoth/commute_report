@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE@2/fonts/variable/woff2/SUITE-Variable.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link href="https://fonts.cdnfonts.com/css/georgia" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dark.css">
   <title>출/퇴근 보고</title>
 </head>
 <body>
@@ -21,18 +21,18 @@
         <p id="clockDisplay" class="clock"></p>
       </div>
   
-      <section>
+      <section class="commute-wrap">
         <h3>출퇴근 보고 자동 완성</h3>
         <form id="reportForm">
           <div class="input-group">
             <label for="name"><i class="las la-user-circle"></i> 이름:</label>
-            <input type="text" id="name" name="userName">
+            <input type="text" id="name" name="userName" placeholder="이름을 입력하세요" required>
           </div>
   
           <div class="input-group">
             <label for="startTime"><i class="las la-hiking"></i> 출근 시간:</label>
             <div class="input-btn-wrap">
-              <input type="time" id="startTime" name="startTime">
+              <input type="time" id="startTime" name="startTime" required>
               <button type="button" id="fillStartTime"><i class="las la-business-time"></i> 현재</button>
             </div>
           </div>
@@ -44,13 +44,13 @@
                 <span>마지막 출근 :</span>
                 <label><input type="radio" id="chk_saturday" name="weekend"> 토</label>
                 <label><input type="radio" id="chk_sunday" name="weekend"> 일</label>
-                <a class="commute-tooltip"><i class="las la-info-circle"></i>
+                <a class="commute-tooltip" data-bs-title=""><i class="las la-info-circle"></i>
                   <p>일~화요일에 활성화 됩니다.</p>
                 </a>
               </div>
             </div>
             <div class="input-btn-wrap">
-              <input type="time" id="endTime" name="endTime">
+              <input type="time" id="endTime" name="endTime" required>
               <button type="button" id="fillEndTime"><i class="las la-business-time"></i> 현재</button>
             </div>
           </div>
@@ -65,9 +65,16 @@
       </section>
     </div>
   
-    <a class="setting-btn" href="javascript:;" data-bs-toggle="modal" data-bs-target="#settingModal">
+    <a class="setting-btn" href="javascript:;">
       <i class="las la-cog"></i>
     </a>
+
+    <div id="settingList" class="card setting-list-card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a data-bs-toggle="modal" data-bs-target="#bgModal"><i class="las la-image"></i> 배경화면</a></li>
+        <li class="list-group-item"><a data-bs-toggle="modal" data-bs-target="#etcSetModal"><i class="las la-sliders-h"></i> 기타 설정</a></li>
+      </ul>
+    </div>
   </div>
   
   <!-- 토스트: 복사 완료 -->
@@ -79,11 +86,11 @@
   </div>
   
   <!-- 배경 설정 모달 -->
-  <div class="modal fade" id="settingModal" tabindex="-1" aria-labelledby="settingModalLabel" aria-hidden="true">
+  <div class="modal fade" id="bgModal" tabindex="-1" aria-labelledby="bgModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="settingModalLabel">배경 이미지 설정</h5>
+          <h5 class="modal-title" id="bgModalLabel">배경 이미지 설정</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
         </div>
         <div class="modal-body">
@@ -103,9 +110,46 @@
       </div>
     </div>
   </div>
-  
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <!-- 기타 설정 모달 -->
+  <div class="modal fade" id="etcSetModal" tabindex="-1" aria-labelledby="etcSetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="etcSetModalLabel">기타 설정</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="setting-list list-group list-group-flush">
+            <li class="list-group-item">
+              <h6><i class="las la-brush"></i> 폼 투명도</h6>
+              <div class="setting-component">
+                <input type="range" id="ran_formOpacity" class="form-range" min="0" max="100" value="100">
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h6><i class="las la-clock"></i> 시계 표시</h6>
+              <div class="setting-component">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="ckb_clockToggle">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h6><i class="las la-adjust"></i> 테마 전환</h6>
+              <div class="setting-component">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="ckb_themeToggle">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
