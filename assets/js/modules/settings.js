@@ -1,0 +1,78 @@
+
+// Settings module
+
+import { applyTheme } from './theme.js';
+
+export function initSettings() {
+  initClockVisibility();
+  initWrapOpacity();
+  initThemeToggle();
+}
+
+export function initSettingButtonToggle() {
+  const button = document.querySelector(".setting-btn");
+  const list = document.getElementById("settingList");
+
+  button?.addEventListener("click", () => {
+    const isOpen = list.classList.toggle("show");
+    button.classList.toggle("active", isOpen);
+  });
+
+  // 외부 클릭 시 닫기
+  document.addEventListener("click", function (e) {
+    const isModalOpen = document.querySelector(".modal.show");
+    if (isModalOpen) return;
+
+    if (!list.contains(e.target) && !button.contains(e.target)) {
+      list.classList.remove("show");
+      button.classList.remove("active");
+    }
+  });
+}
+
+export function initWrapOpacity() {
+  const stored = localStorage.getItem("wrapOpacity") || "0.85";
+  const wrap = document.querySelector(".commute-wrap");
+  const range = document.getElementById("ran_formOpacity");
+
+  // ✅ 초기화
+  if (wrap) wrap.style.setProperty("--user-opacity", stored);
+  if (range) range.value = Math.round(parseFloat(stored) * 100);
+
+  // ✅ 슬라이더 반영
+  if (range) {
+    range.addEventListener("input", (e) => {
+      const val = e.target.value / 100;
+      wrap?.style.setProperty("--user-opacity", val);
+      localStorage.setItem("wrapOpacity", val);
+    });
+  }
+}
+
+export function initClockVisibility() {
+  const stored = localStorage.getItem("clockVisible");
+  const isVisible = stored === null || stored === "true";
+
+  const clock = document.getElementById("clockDisplay");
+  const toggle = document.getElementById("ckb_clockToggle");
+
+  if (clock) clock.style.display = isVisible ? "block" : "none";
+  if (toggle) toggle.checked = isVisible;
+
+  toggle?.addEventListener("change", (e) => {
+    const show = e.target.checked;
+    localStorage.setItem("clockVisible", show);
+    if (clock) clock.style.display = show ? "block" : "none";
+  });
+}
+
+
+export function initThemeToggle() {
+  const toggle = document.getElementById("ckb_themeToggle");
+
+  toggle?.addEventListener("change", (e) => {
+    const theme = e.target.checked ? "dark" : "light";
+    localStorage.setItem("themePreference", theme);
+    applyTheme(theme);
+  });
+}
