@@ -125,7 +125,7 @@ body.custom-bg {
 }
 
 .commute-wrap {
-  width: 90%;
+  width:100%;
   max-width: 600px;
   background-color: rgb(255, 255, 255, var(--user-opacity));
   padding: 20px;
@@ -489,7 +489,40 @@ section button {
   margin-left:0
 }
 
+@media (max-width:1000px) {
+  .contents-wrap {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contents-wrap > * {
+    flex:0 0 auto!important
+  }
+
+  .main-left .clock {
+    margin-top:20px
+  }
+  .main-left {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 767px) {
+  .contents-wrap {
+    width: calc(100% - 20px);
+  }
+  .contents-wrap > * {
+    flex: 1 1 auto;
+  }
+  .main-left {
+    min-width: unset;
+    flex-basis: unset;
+  }
+}
+
 @media (max-width: 400px) {
+  .main-left {
+    display:none;
+  }
   section {
     width: 100%;
   }
