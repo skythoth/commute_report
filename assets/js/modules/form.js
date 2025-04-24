@@ -48,3 +48,16 @@ export function validationCheck() {
 function padZero(num) {
   return num < 10 ? "0" + num : num;
 }
+
+export function bindNowButtons() {
+  const btnStart = document.getElementById("fillStartTime");
+  const btnEnd = document.getElementById("fillEndTime");
+
+  if (btnStart) {
+    btnStart.addEventListener("click", () => fillCurrentTime("startTime"));
+  }
+
+  if (btnEnd) {
+    btnEnd.addEventListener("click", () => fillCurrentTime("endTime"));
+  }
+}

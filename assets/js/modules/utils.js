@@ -14,13 +14,19 @@ export function getFormattedDateTime(date, time) {
   return `${padZero(date.getMonth()+1)}월 ${padZero(date.getDate())}일(${getWeekday(date.getDay())}) ${h}시 ${m}분`;
 }
 
-export function showValidationToast() {
-  const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('validationToast'));
-  toast.show();
-}
+export function showToast(message, type = "primary") {
+  const toastEl = document.getElementById("globalToast");
+  const toastMsg = document.getElementById("globalToastMessage");
 
-export function showCopyToast() {
-  const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('clipboardToast'));
+  if (!toastEl || !toastMsg) return;
+
+  // 스타일 변경
+  toastEl.className = `toast align-items-center text-bg-${type} border-0`;
+
+  // 메시지 삽입
+  toastMsg.textContent = message;
+
+  const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
   toast.show();
 }
 
@@ -42,6 +48,19 @@ export function showError(msg) {
 export function clearError() {
   document.getElementById('bgFileError').classList.add('d-none');
   document.getElementById('bgFileInput').classList.remove('is-invalid');
+}
+
+export function updateWeekendCheckboxState() {
+  const today = new Date().getDay(); // 0 = 일, 1 = 월, 2 = 화
+  const showWeekend = today === 0 || today === 1 || today === 2;
+
+  const weekendCheck = document.getElementById("weekendCheck");
+  const chkSat = document.getElementById("chk_saturday");
+  const chkSun = document.getElementById("chk_sunday");
+
+  if (weekendCheck) weekendCheck.classList.toggle("disabled", !showWeekend);
+  if (chkSat) chkSat.disabled = !showWeekend;
+  if (chkSun) chkSun.disabled = !showWeekend;
 }
 
 export function observeDateChange(callback) {

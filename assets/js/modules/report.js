@@ -2,7 +2,7 @@
 // Report module
 
 import { validationCheck } from './form.js';
-import { getFormattedDateTime, showValidationToast, copyToClipboard, showCopyToast, padZero } from './utils.js';
+import { getFormattedDateTime, copyToClipboard, showToast, padZero } from './utils.js';
 
 export function initReportHandlers() {
   document.addEventListener("submitReport", (e) => {
@@ -12,7 +12,7 @@ export function initReportHandlers() {
     const endTime = document.getElementById("endTime")?.value;
 
     if (!validationCheck()) {
-      showValidationToast();
+      showToast("값들을 모두 입력해주세요", "danger");
       return;
     }
 
@@ -48,16 +48,18 @@ export function renderReport(name, type, startTime, endTime, startDate, endDate)
   ? `${name} 출근 보고드립니다.\n-퇴근 ${getFormattedDateTime(endDate, endTime)}\n-출근 ${getFormattedDateTime(startDate, startTime)}`
   : `${name} 퇴근 보고드립니다.\n-출근 ${getFormattedDateTime(startDate, startTime)}\n-퇴근 ${getFormattedDateTime(endDate, endTime)}`;
 
+  
   report.textContent = lines;
   report.className = type;
-
+  report.innerHTML = lines.replace(/\n/g, "<br>");
+  
   localStorage.setItem("commuteName", name);
   localStorage.setItem("commuteStartTime", startTime);
   localStorage.setItem("commuteEndTime", endTime);
 
   saveCommuteLog(type, startTime, endTime);
   copyToClipboard();
-  showCopyToast();
+  showToast("클립보드에 복사되었어요");
 }
 
 function saveCommuteLog(type, startTime, endTime) {
