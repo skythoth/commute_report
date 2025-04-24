@@ -13,12 +13,10 @@
 ---
 
 ## 📁 프로젝트 구조
-commute-report/ 
-├── index.html # 메인 페이지 
-├── assets/ 
-│ 
-├── css/style.css # 스타일 시트 
-│ 
+commute-report/  
+├── index.html # 메인 페이지  
+├── assets/ # 정적 파일 (이미지, 아이콘 등)  
+├── css/style.css # 스타일 시트  
 └── js/main.js # 메인 스크립트
 
 ---
@@ -44,27 +42,28 @@ git clone https://github.com/skythoth/commute-report.git
 cd commute-report
 open index.html
 ```
-
+  
 또는 VSCode의 Live Server 확장으로 실행 가능
 
+
 ### 2. 배포
-본 프로젝트는 Vercel을 통해 배포됩니다.
-자동 빌드 및 배포 설정 완료 후 커밋하면 실시간으로 반영됩니다.
+본 프로젝트는 Vercel을 통해 배포됩니다.  
+자동 빌드 및 배포 설정 완료 후 커밋하면 실시간으로 반영됩니다.  
 
 ---
 
 ## 🛠️ 기술 스택
-HTML5 + CSS3 + JavaScript (Vanilla) : 기본 웹 개발
-Bootstrap 5 (Toast UI)
-LocalStorage API : 데이터 저장 및 관리
-Canvas API (배경 밝기 분석) : 이미지 처리
-Vercel (정적 사이트 배포) : 배포 및 호스팅
+HTML5 + CSS3 + JavaScript (Vanilla) : 기본 웹 개발  
+Bootstrap 5 (Toast UI)  
+LocalStorage API : 데이터 저장 및 관리  
+Canvas API (배경 밝기 분석) : 이미지 처리  
+Vercel (정적 사이트 배포) : 배포 및 호스팅  
 
 ---
 
 ## 👨‍💻 개발자
-GitHub: @skythoth
-Email: skythoth@me.com
+GitHub: @skythoth  
+Email: skythoth@me.com  
 
 ---
 
