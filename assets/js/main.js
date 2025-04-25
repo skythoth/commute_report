@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateWeekendCheckboxState();
   observeDateChange(() => {
     console.log("날짜 변경 감지됨. 설정 갱신");
-    initSettings(); // 투명도/시계 설정 다시 적용
+    initSettings();
     updateWeekendCheckboxState();
   });
   initSettingButtonToggle();

@@ -28,6 +28,7 @@
   --text-color: #000000;
 
   --input-bg-color: #f8f9fa;
+  --input-bg-color-rgb: 248, 249, 250;
   --input-text-color: #212529;
 
   --border-color: #ced4da;
@@ -207,7 +208,7 @@ input[type="time"] {
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 10px !important;
-  background-color: var(--input-bg-color);
+  background-color: rgba(var(--input-bg-color-rgb), calc(0.5 + 0.5 * var(--user-opacity)));
   color: var(--input-text-color);
   border: 1px solid var(--border-color);
 }
@@ -356,7 +357,7 @@ section button {
   margin-top: 20px;
   height: 100px;
   padding: 15px;
-  background-color: var(--input-color);
+  background-color: rgba(var(--input-bg-color-rgb), calc(0.4 + 0.5 * var(--user-opacity)));
   border: 1px solid var(--border-color);
   border-radius: 10px;
   transition: box-shadow .3s;

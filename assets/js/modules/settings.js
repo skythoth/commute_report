@@ -31,21 +31,29 @@ export function initSettingButtonToggle() {
 }
 
 export function initWrapOpacity() {
-  const stored = localStorage.getItem("wrapOpacity") || "0.85";
+  const stored = localStorage.getItem("wrapOpacity") || "1";
   const wrap = document.querySelector(".commute-wrap");
   const range = document.getElementById("ran_formOpacity");
 
-  // ✅ 초기화
-  if (wrap) wrap.style.setProperty("--user-opacity", stored);
-  if (range) range.value = Math.round(parseFloat(stored) * 100);
+  applyOpacity(parseFloat(stored));
 
-  // ✅ 슬라이더 반영
   if (range) {
+    range.value = Math.round(parseFloat(stored) * 100);
     range.addEventListener("input", (e) => {
-      const val = e.target.value / 100;
-      wrap?.style.setProperty("--user-opacity", val);
+      const val = parseFloat(e.target.value) / 100;
+      applyOpacity(val);
       localStorage.setItem("wrapOpacity", val);
     });
+  }
+}
+
+function applyOpacity(wrapOpacity) {
+  const wrap = document.querySelector(".commute-wrap");
+  const inputOpacity = 0.5 + (wrapOpacity * 0.5);
+
+  if (wrap) {
+    wrap.style.setProperty("--user-opacity", wrapOpacity);
+    wrap.style.setProperty("--user-input-opacity", inputOpacity.toFixed(3));
   }
 }
 
