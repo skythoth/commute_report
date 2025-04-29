@@ -53,7 +53,6 @@ function applyOpacity(wrapOpacity) {
 
   if (wrap) {
     wrap.style.setProperty("--user-opacity", wrapOpacity);
-    wrap.style.setProperty("--user-input-opacity", inputOpacity.toFixed(3));
   }
 }
 

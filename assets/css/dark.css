@@ -32,6 +32,10 @@
   color: inherit;
 }
 
+[data-bs-theme="dark"] .input-btn-wrap button {
+  background-color: var(--bs-gray-800);
+}
+
 [data-bs-theme="dark"] .weekend-check.disabled {
   border-color: var(--border-color);
 }

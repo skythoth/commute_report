@@ -196,14 +196,17 @@ label i {
   font-size: 24px;
 }
 
-input {
+input[type="text"],
+input[type="time"],
+input[type="password"],
+input[type="number"] {
   background-color: var(--input-bg-color);
   color: var(--input-text-color);
   border: 1px solid var(--border-color);
 }
 
-input[type="text"],
-input[type="time"] {
+.commute-wrap input[type="text"],
+.commute-wrap input[type="time"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -213,8 +216,8 @@ input[type="time"] {
   border: 1px solid var(--border-color);
 }
 
-input[type="text"].is-invalid,
-input[type="time"].is-invalid {
+.commute-wrap input[type="text"].is-invalid,
+.commute-wrap input[type="time"].is-invalid {
   border: 1px solid var(--state-danger);
   background-color: rgba(var(--state-danger-rgb), 0.1);
 } 
@@ -234,7 +237,7 @@ input[type="time"].is-invalid {
 .input-btn-wrap button {
   max-width: 90px;
   flex: 1 1 0;
-  background-color: var(--color-brand-400);
+  background-color: var(--bs-gray-600);
   height: 46px
 }
 
@@ -465,12 +468,18 @@ section button {
   opacity:1;
 }
 
+.setting-list-card a{
+  display:block;
+  cursor:pointer
+}
+
 .setting-list .list-group-item{
   display:flex;
   justify-content:space-between;
   align-items: center;
   min-height: 42px;
 }
+
 .setting-list .list-group-item h6 {
   flex:2 1 auto;
   margin: 0;
