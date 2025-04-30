@@ -499,6 +499,15 @@ section button {
   margin-left:0
 }
 
+.report-summary table tr th{
+  text-align:center;
+}
+
+.report-summary table tr td{
+  width:33.33%;
+  text-align:center;
+}
+
 @media (max-width:1000px) {
   .contents-wrap {
     flex-direction: column;
