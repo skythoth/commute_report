@@ -7,6 +7,7 @@ import { initBackground } from './modules/background.js';
 import { initSettings } from './modules/settings.js';
 import { updateWeekendCheckboxState, observeDateChange } from './modules/utils.js';
 import { initSettingButtonToggle } from './modules/settings.js';
+import { renderAprilReport } from './modules/report-log.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   initThemeFromSystemOrStorage();
@@ -25,4 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
     updateWeekendCheckboxState();
   });
   initSettingButtonToggle();
+
+  const reportModal = document.getElementById("reportModal");
+
+  if (reportModal) {
+    reportModal.addEventListener("show.bs.modal", () => {
+      renderAprilReport();
+    });
+  }
 });
