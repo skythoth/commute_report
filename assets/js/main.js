@@ -6,7 +6,7 @@ import { initReportHandlers } from './modules/report.js';
 import { initBackground } from './modules/background.js';
 import { updateWeekendCheckboxState, observeDateChange } from './modules/utils.js';
 import { initSettings, initSettingButtonToggle, restoreOffDays } from './modules/settings.js';
-import { bindMonthSelect, populateMonthSelect } from './modules/report-log.js';
+import { bindMonthSelect, populateMonthSelect, bindCsvDownload } from './modules/report-log.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   initThemeFromSystemOrStorage();
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateWeekendCheckboxState();
   });
   initSettingButtonToggle();
+  bindCsvDownload();
 
   const reportModal = document.getElementById("reportModal");
   if (reportModal) {

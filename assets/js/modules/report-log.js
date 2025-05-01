@@ -26,24 +26,23 @@ function groupLogsByDate(logs) {
 export function renderReportByMonth(year, month) {
   const logs = getLogsByMonth(year, month);
   const grouped = groupLogsByDate(logs);
-  const table = document.getElementById("aprilReportTable");
-
-  table.innerHTML = `
-    <tr><th>날짜</th><th>출근</th><th>퇴근</th><th>비고</th></tr>
-  `;
-
   const userOffDays = getUserOffDays();
+  const tbody = document.getElementById("reportBody");
+  tbody.innerHTML = ""; // 초기화
+
   Object.keys(grouped).sort().forEach(date => {
     const arrival = grouped[date].arrival || "-";
     const departure = grouped[date].departure || "-";
-  
+
     const day = new Date(date).getDay();
     let note = "";
     if (!arrival || !departure) note = "⚠️ 누락";
     else if (userOffDays.includes(day) && arrival) note = "🟠 휴무일";
-  
-    table.innerHTML += `
-      <tr>
+
+    const isOffdayWork = userOffDays.includes(day) && arrival;
+
+    tbody.innerHTML += `
+      <tr class="${isOffdayWork ? 'offday-row' : ''}">
         <td>${date}</td>
         <td>${arrival}</td>
         <td>${departure}</td>
@@ -101,4 +100,31 @@ export function populateMonthSelect() {
 
   const [y, m] = select.value.split("-");
   renderReportByMonth(y, m);
+}
+
+export function bindCsvDownload() {
+  const btn = document.getElementById("downloadCsvBtn");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    const table = document.getElementById("aprilReportTable");
+    const rows = table.querySelectorAll("tr");
+    let csv = "";
+
+    rows.forEach(row => {
+      const cells = row.querySelectorAll("th, td");
+      const rowData = [...cells].map(cell => `"${cell.textContent.trim()}"`).join(",");
+      csv += rowData + "\n";
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const now = new Date();
+    const filename = `commute-report-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}.csv`;
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
 }

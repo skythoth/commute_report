@@ -182,7 +182,7 @@ form {
   position: relative
 }
 
-label {
+.commute-wrap .input-group label {
   display: flex;
   width: 100%;
   gap: 3px;
@@ -192,7 +192,7 @@ label {
   color: var(--label-color);
 }
 
-label i {
+.commute-wrap .input-group label i {
   font-size: 24px;
 }
 
@@ -245,7 +245,7 @@ input[type="number"] {
   filter:brightness(1.2)
 }
 
-.weekend-check {
+.commute-wrap .weekend-check {
   position: absolute;
   display: flex;
   gap: 10px;
@@ -259,13 +259,15 @@ input[type="number"] {
   margin-right: 25px
 }
 
-.weekend-check>span {
+.commute-wrap .weekend-check > span {
   width: auto;
+  flex:0 0 auto;
 }
 
-.weekend-check label {
+.commute-wrap .weekend-check > label {
   width: auto;
-  margin: 0
+  margin: 0;
+  
 }
 
 .weekend-check .commute-tooltip {
@@ -494,10 +496,15 @@ section button {
 
 .setting-list .list-group-item .setting-component .form-check {
   min-height:unset;
+  margin-bottom:0;
+}
+
+.setting-list .list-group-item .setting-component .form-check:last-child {
+  margin-right:0;
 }
 
 .setting-list .list-group-item .setting-component .form-switch .form-check-input{
-  margin-left:0
+  margin-left:0;
 }
 
 .report-summary table tr td:first-child{
@@ -519,6 +526,10 @@ section button {
 .report-summary table tr td{
   width:25%;
   text-align:center;
+}
+
+.report-summary table tr.offday-row td{
+  background-color:var(--bs-warning);
 }
 
 @media (max-width:1000px) {
