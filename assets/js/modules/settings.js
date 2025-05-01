@@ -2,6 +2,7 @@
 // Settings module
 
 import { applyTheme } from './theme.js';
+import { showToast } from './utils.js';
 
 export function initSettings() {
   initClockVisibility();
@@ -83,3 +84,32 @@ export function initThemeToggle() {
     applyTheme(theme);
   });
 }
+
+export function restoreOffDays() {
+  const saved = JSON.parse(localStorage.getItem("userOffDays") || "[]").map(Number);
+  console.log("✅ 저장된 값:", saved);
+  const checkboxes = document.querySelectorAll('input[name="offDays"]');
+
+saved.includes(0);
+  checkboxes.forEach(cb => {
+    const match = saved.includes(parseInt(cb.value));
+    cb.checked = match;
+    console.log(`🟢 요일 ${cb.value} → checked: ${match}`);
+  });
+}
+
+export function saveOffDays() {
+  const checked = [...document.querySelectorAll('input[name="offDays"]:checked')];
+  const values = checked.map(cb => Number(cb.value));
+  localStorage.setItem("userOffDays", JSON.stringify(values));
+}
+
+export function getUserOffDays() {
+  return JSON.parse(localStorage.getItem("userOffDays") || "[]").map(Number);
+}
+
+document.getElementById("settingSave")?.addEventListener("click", () => {
+  saveOffDays();
+  showToast("설정이 저장되었습니다.", "success");
+  bootstrap.Modal.getInstance(document.getElementById("etcSetModal"))?.hide();
+});

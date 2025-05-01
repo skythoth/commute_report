@@ -144,7 +144,31 @@
                 </div>
               </div>
             </li>
+            <li class="list-group-item">
+              <h6>휴무일 설정</h6>
+              <div class="setting-component">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="offDays" value="6"> 토
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="offDays" value="0"> 일
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="offDays" value="1"> 월
+                  </label>
+                </div>
+              </div>
+            </li>
           </ul>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-primary" id="settingSave"><i class="las la-check"></i> 저장</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="las la-times"></i> 닫기</button>
         </div>
       </div>
     </div>
@@ -159,6 +183,15 @@
         </div>
         <div class="modal-body">
           <section class="report-summary">
+            <div class="month-dropdown mb-3">
+              <label for="selectMonth" class="form-label"><i class="las la-calendar"></i> 월 선택</label>
+              <select id="selectMonth" class="form-select">
+                <option value="2025-03">2025년 3월</option>
+                <option value="2025-04" selected>2025년 4월</option>
+                <option value="2025-05">2025년 5월</option>
+              </select>
+            </div>
+
             <table id="aprilReportTable" class="table table-bordered mt-3">
               <thead>
                 <tr>

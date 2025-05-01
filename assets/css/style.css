@@ -385,7 +385,8 @@ section button {
   top: 10px;
   right: 10px;
   background: var(--color-brand-400);
-  color: #fff
+  color: #fff;
+  z-index:9999
 }
 
 .toast.text-bg-danger {
@@ -499,12 +500,24 @@ section button {
   margin-left:0
 }
 
+.report-summary table tr td:first-child{
+  width:30%
+}
+
+.report-summary table tr td:nth-child(2), 
+.report-summary table tr td:nth-child(3){
+  width:25%
+}
+.report-summary table tr td:last-child{
+  width:20%
+}
+
 .report-summary table tr th{
   text-align:center;
 }
 
 .report-summary table tr td{
-  width:33.33%;
+  width:25%;
   text-align:center;
 }
 
