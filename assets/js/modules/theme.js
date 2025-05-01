@@ -1,3 +1,4 @@
+// Theme module - 단일 함수 모듈
 
 // Theme module
 

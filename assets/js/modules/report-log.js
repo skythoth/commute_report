@@ -1,6 +1,6 @@
 import { getUserOffDays } from './settings.js';
 
-function getAprilLogs() {
+function getMonthlyLogs() {
   const logs = JSON.parse(localStorage.getItem("commuteLogs") || "[]");
 
   const now = new Date();
@@ -117,10 +117,10 @@ export function bindCsvDownload() {
       csv += rowData + "\n";
     });
 
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const now = new Date();
-    const filename = `commute-report-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}.csv`;
+    const monthKey = document.getElementById("selectMonth")?.value || "unknown";
+    const filename = `commute-report-${monthKey}.csv`;
 
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = filename;

@@ -2,8 +2,6 @@
 // Form module
 
 export function initFormData() {
-  console.log("[form.js] initFormData 실행됨");
-
   const name = localStorage.getItem("commuteName") || "";
   const startTime = localStorage.getItem("commuteStartTime") || "09:00";
   const endTime = localStorage.getItem("commuteEndTime") || "19:00";
