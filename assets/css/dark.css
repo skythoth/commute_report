@@ -19,7 +19,8 @@
 }
 
 [data-bs-theme="dark"] h2,
-[data-bs-theme="dark"] .clock{
+[data-bs-theme="dark"] .clock,
+[data-bs-theme="dark"] .leave-clock{
   color:#fff;
   text-shadow: #000 0 0 10px;
 }

@@ -161,8 +161,16 @@ h2 {
   transition: opacity .5s;
   opacity:0;
 }
+.main-left .leave-clock{
+  margin-top:10px;
+  font-size: 24px;
+  color:#333;
+  font-family: 'Georgia', sans-serif;
+  transition: opacity .5s;
+  /* opacity:0; */
+}
 
-h2, .clock {
+h2, .clock, .leave-clock {
   text-shadow: #fff 0 0 10px;
 }
 
