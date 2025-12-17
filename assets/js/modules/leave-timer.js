@@ -14,17 +14,21 @@ export function initLeaveTimer({ startHour = 9, endHour = 19 } = {}) {
   function update() {
     const now = new Date();
     const hh = now.getHours();
-    const mm = now.getMinutes().toString().padStart(2, '0');
-    const ss = now.getSeconds().toString().padStart(2, '0');
+
+    // 로컬스토리지에서 설정된 시간 읽기 (기본값: 9, 19)
+    const storedStart = localStorage.getItem("workStartHour");
+    const storedEnd = localStorage.getItem("workEndHour");
+    const currentStartHour = storedStart ? parseInt(storedStart) : startHour;
+    const currentEndHour = storedEnd ? parseInt(storedEnd) : endHour;
 
     let message;
-    if (hh < startHour) {
+    if (hh < currentStartHour) {
       // 출근 전
-      const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startHour);
+      const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), currentStartHour);
       message = `출근까지 ${formatDiff(target - now)} 남았습니다.`;
-    } else if (hh < endHour) {
+    } else if (hh < currentEndHour) {
       // 근무 중
-      const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), endHour);
+      const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), currentEndHour);
       message = `퇴근까지 ${formatDiff(target - now)} 남았습니다.`;
     } else {
       // 퇴근 후

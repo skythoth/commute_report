@@ -8,6 +8,7 @@ export function initSettings() {
   initClockVisibility();
   initWrapOpacity();
   initThemeToggle();
+  initWorkHours();
 }
 
 export function initSettingButtonToggle() {
@@ -90,7 +91,7 @@ export function restoreOffDays() {
   console.log("✅ 저장된 값:", saved);
   const checkboxes = document.querySelectorAll('input[name="offDays"]');
 
-saved.includes(0);
+  saved.includes(0);
   checkboxes.forEach(cb => {
     const match = saved.includes(parseInt(cb.value));
     cb.checked = match;
@@ -108,8 +109,31 @@ export function getUserOffDays() {
   return JSON.parse(localStorage.getItem("userOffDays") || "[]").map(Number);
 }
 
+export function initWorkHours() {
+  const startParam = localStorage.getItem("workStartHour");
+  const endParam = localStorage.getItem("workEndHour");
+
+  const startVal = startParam ? parseInt(startParam) : 9;
+  const endVal = endParam ? parseInt(endParam) : 19;
+
+  const startInput = document.getElementById("inp_workStartHour");
+  const endInput = document.getElementById("inp_workEndHour");
+
+  if (startInput) startInput.value = startVal;
+  if (endInput) endInput.value = endVal;
+}
+
+export function saveWorkHours() {
+  const startInput = document.getElementById("inp_workStartHour");
+  const endInput = document.getElementById("inp_workEndHour");
+
+  if (startInput) localStorage.setItem("workStartHour", startInput.value);
+  if (endInput) localStorage.setItem("workEndHour", endInput.value);
+}
+
 document.getElementById("settingSave")?.addEventListener("click", () => {
   saveOffDays();
+  saveWorkHours();
   showToast("설정이 저장되었습니다.", "success");
   bootstrap.Modal.getInstance(document.getElementById("etcSetModal"))?.hide();
 });
